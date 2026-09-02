@@ -12,37 +12,32 @@ sys.stdin = open('input.txt', 'r')
 board[r][c] += color 로 그냥 누적해도 값이 절대 꼬이지 않는다.
 """
 
-import sys
-# sys.stdin = open('sample_input.txt', 'r')   # 로컬 테스트용. 제출 시 주석 처리!
-input = sys.stdin.readline
 
 T = int(input())
 
 for tc in range(1, T + 1):
-    N = int(input())                       # 색칠 영역(직사각형) 개수
+    N = int(input())                      
+    board = [[0] * 10 for _ in range(10)]  # 10x10 격자판 초기화
 
-    # 10x10 격자를 0으로 초기화
-    # [[0]*10]*10 은 같은 리스트를 10번 참조해서 버그가 남 → 반드시 컴프리헨션
-    board = [[0] * 10 for _ in range(10)]
-
-    # ── N개의 직사각형을 하나씩 칠한다 ──
     for _ in range(N):
         r1, c1, r2, c2, color = map(int, input().split())
+        for r in range(r1 - 1, r2):  # 행 범위
+            for c in range(c1 - 1, c2):  # 열 범위
+                board[r][c] += color
 
-        # (r1,c1)부터 (r2,c2)까지 '끝 칸 포함' → range는 끝을 제외하므로 +1 필수
-        for r in range(r1, r2 + 1):
-            for c in range(c1, c2 + 1):
-                board[r][c] += color       # 빨강(1) 위에 파랑(2) → 3(보라)
+    # 보라색 칸 수 세기
+    cnt = 0         
 
-    # ── 보라색(3) 칸 세기 ──
-    count = 0
-    for r in range(10):
-        for c in range(10):
-            if board[r][c] == 3:
-                count += 1
 
-    print(f'#{tc} {count}')
 
+    for r in range(10): 
+            
+        for c in range(10): 
+            if board[r][c] == 3:  # 빨강+파랑
+                cnt += 1    
+
+
+    print(f'#{tc} {cnt}')
 """
 [검증] 1번 케이스
     2 2 4 4 1  → 행2~4, 열2~4 빨강

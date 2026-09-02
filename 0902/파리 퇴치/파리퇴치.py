@@ -13,10 +13,6 @@ sys.stdin = open('input.txt', 'r')
 가능한 위치를 전부 놓아보고(완전 탐색) 합의 최댓값을 고른다.
 """
 
-import sys
-# sys.stdin = open('input.txt', 'r')   # 로컬 테스트용. 제출 시 주석 처리!
-input = sys.stdin.readline
-
 T = int(input())
 
 for tc in range(1, T + 1):
